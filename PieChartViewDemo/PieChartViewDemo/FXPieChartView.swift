@@ -43,15 +43,7 @@ class FXPieChartView: UIView {
     var dataSum : Float = 0.0//数据总和
     var radius : Float = 0.0//图形半径
     var lineRadius : Float = 0.0//线半径
-    let colorArr = [UIColor.init(red: 75/255.0, green: 160/255.0, blue: 235/255.0, alpha: 1.0),
-                            UIColor.init(red: 253/255.0, green: 171/255.0, blue: 109/255.0, alpha: 1.0),
-                            UIColor.init(red: 205/255.0, green: 100/255.0, blue: 109/255.0, alpha: 1.0),
-                            UIColor.init(red: 122/255.0, green: 133/255.0, blue: 164/255.0, alpha: 1.0),
-                            UIColor.init(red: 222/255.0, green: 199/255.0, blue: 15/255.0, alpha: 1.0),
-                            UIColor.init(red: 134/255.0, green: 170/255.0, blue: 65/255.0, alpha: 1.0),
-                            UIColor.init(red: 43/255.0, green: 189/255.0, blue: 189/255.0, alpha: 1.0),
-                            UIColor.init(red: 167/255.0, green: 141/255.0, blue: 214/255.0, alpha: 1.0)
-                            ]
+    var colorArr : [UIColor]?
 
     
     override init(frame: CGRect) {
@@ -145,8 +137,8 @@ extension FXPieChartView  {
             
             //设置colorArr 不够时随机色填充
             var color : UIColor!
-            if colorArr.count > i {
-                color = colorArr[i]
+            if colorArr != nil && colorArr!.count > i {
+                color = colorArr![i]
             }else {
                 color = UIColor(red: CGFloat(arc4random()%255) / 255.0, green: CGFloat(arc4random()%255) / 255.0, blue: CGFloat(arc4random()%255) / 255.0, alpha: 1.0)
             }
