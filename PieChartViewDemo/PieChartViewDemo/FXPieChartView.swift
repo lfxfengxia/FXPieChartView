@@ -10,6 +10,7 @@ import UIKit
 
 class FXPieChartView: UIView {
     
+    var percentAcoordingToRadius : Bool = true
     var _valueArr : [Float]?
     var valueArr : [Float] {
     
@@ -39,7 +40,7 @@ class FXPieChartView: UIView {
     var startDegree : Float = 0.0//可以定义开始绘制的起点
     var textArr : [NSString]?
     var maxDataNum : Float = 0.0//所有数据中的最大值
-    private var dataSum : Float = 0.0//数据总和
+    var dataSum : Float = 0.0//数据总和
     var radius : Float = 0.0//图形半径
     var lineRadius : Float = 0.0//线半径
     let colorArr = [UIColor.init(red: 75/255.0, green: 160/255.0, blue: 235/255.0, alpha: 1.0),
@@ -125,10 +126,16 @@ extension FXPieChartView  {
         //画扇形
         for i in 0 ..< _valueArr!.count {
             
-            endDegree = endDegree + avgDegree
-            lineStartDegree = startDegree + avgDegree * 0.5
             //求半径 半径根据比例变化的情况
-            let trueRadius = _valueArr![i] / maxDataNum * radius
+            var trueRadius = _valueArr![i] / maxDataNum * radius
+            if percentAcoordingToRadius == false {
+                trueRadius = radius;
+                endDegree = endDegree + Float(Double.pi * 2) * _valueArr![i]/dataSum;
+                lineStartDegree = startDegree + (endDegree - startDegree) * 0.5;
+            }else {
+                endDegree = endDegree + avgDegree
+                lineStartDegree = startDegree + avgDegree * 0.5
+            }
             
             //画扇形
             let center = CGPoint(x: selfW * 0.5, y: selfH * 0.5)
